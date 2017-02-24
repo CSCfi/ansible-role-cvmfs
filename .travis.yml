@@ -16,7 +16,7 @@ env:
 
 install:
   - npm install -g validate-dockerfile
-  - pip install docker-py molecule
+  - pip install docker molecule arrow cryptography
 
 script:
   - molecule test
