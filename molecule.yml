@@ -17,3 +17,8 @@ docker:
 
 ansible:
   playbook: tests/test.yml
+  diff: True
+  verbose: True
+  ansiblecfg_defaults:
+    roles_path: ../../
+  limit: False
