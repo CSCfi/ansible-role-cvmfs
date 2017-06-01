@@ -21,4 +21,5 @@ ansible:
   verbose: True
   ansiblecfg_defaults:
     roles_path: ../../
+    ansible_python_interpreter: /usr/bin/python
   limit: False
