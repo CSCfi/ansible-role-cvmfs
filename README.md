@@ -1,7 +1,7 @@
 ansible-role-cvmfs
 =========
 
-[![Build Status](https://travis-ci.org/CSC-IT-Center-for-Science/ansible-role-cvmfs.svg?branch=master)](https://travis-ci.org/CSC-IT-Center-for-Science/ansible-role-cvmfs)
+[![Build Status](https://travis-ci.org/CSCfi/ansible-role-cvmfs.svg?branch=master)](https://travis-ci.org/CSCfi/ansible-role-cvmfs)
 
 Configures a CVMFS client
 
