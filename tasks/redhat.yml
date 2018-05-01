@@ -20,7 +20,7 @@
     src: cernvm.repo
     dest: /etc/yum.repos.d/cernvm.repo
     mode: 0644
-  when: cvmfs_cernrepo|failed
+  when: cvmfs_cernrepo is failed
 
 #TODO?
 #- name: add a cernkey if cvmfs_cernrepokey failed
@@ -42,7 +42,7 @@
   when: 
     - ansible_distribution_major_version == "7" 
     - fgci_install == True 
-    - reg_cvmfs_fgci7_installed|failed
+    - reg_cvmfs_fgci7_installed is failed
 
 - name: Install FGCI CVMFS repofiles
   yum:
