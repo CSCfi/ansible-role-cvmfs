@@ -54,8 +54,12 @@
      name: autofs
      state: started
      enabled: yes
-   when: ansible_virtualization_type != "docker"
- 
+   when: ansible_virtualization_type != "docker" and ansible_connection != 'chroot'
+
+ - name: Enable autofs for chroot images
+   command: systemctl enable autofs
+   when: ansible_connection == 'chroot'
+
  - name: flush the handlers - so that autofs settings are applied before we run chksetup
    meta: flush_handlers
  
@@ -64,7 +68,7 @@
    register: cvmfschksetup
    failed_when: cvmfschksetup.rc != 0
    changed_when: false
-   when: ansible_virtualization_type != "docker"
+   when: ansible_virtualization_type != "docker" and ansible_connection != 'chroot'
  
  #- name: print output of cvmfschksetup
  #  debug: var=cvmfschksetup["stdout"]
