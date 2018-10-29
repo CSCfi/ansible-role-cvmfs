@@ -15,9 +15,11 @@ env:
   - IMAGE_BUILD_PLATFORM=devel-centos7
 
 install:
-  - pip install molecule ansible
+  - pip install molecule ansible docker
 
 before_script:
+  - docker -v
+  - python -V
   - ansible --version
   - molecule --version
 script:
