@@ -52,23 +52,12 @@
 
 - name: Install CVMFS client EL6
   yum:
-    name: "{{ item }}"
+    name: ["cvmfs-release", "cvmfs-keys", "cvmfs", "cvmfs-init-scripts", "cvmfs-auto-setup"]
     state: present
-  with_items:
-    - "cvmfs-release"
-    - "cvmfs-keys"
-    - "cvmfs"
-    - "cvmfs-init-scripts"
-    - "cvmfs-auto-setup"
   when: ansible_distribution_major_version == "6"
 
 - name: Install CVMFS client EL7
   yum:
-    name: "{{ item }}" 
+    name: ["cvmfs-keys", "cvmfs", "cvmfs-config-default", "autofs"]
     state: present
-  with_items:
-    - "cvmfs-keys"
-    - "cvmfs"
-    - "cvmfs-config-default"
-    - "autofs"
   when: ansible_distribution_major_version == "7"
