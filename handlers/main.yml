@@ -3,5 +3,5 @@
   service: 
     name: autofs 
     state: restarted
-  when: ansible_virtualization_type != "docker"
+  when: ansible_virtualization_type != "docker" and ansible_connection != 'chroot'
 ...
