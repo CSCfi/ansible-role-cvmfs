@@ -5,6 +5,7 @@ ansible-role-cvmfs
 
 Configures a CVMFS client
 
+
 Requirements
 ------------
 
