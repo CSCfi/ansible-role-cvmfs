@@ -3,7 +3,7 @@
 #
 - name: get_url the CVMFS repo
   get_url:
-    url: http://cvmrepo.web.cern.ch/cvmrepo/yum/cernvm.repo
+    url: https://cvmrepo.web.cern.ch/cvmrepo/yum/cernvm.repo
     dest: /etc/yum.repos.d/cernvm.repo
     mode: 0644
   register: cvmfs_cernrepo
