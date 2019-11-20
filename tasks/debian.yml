@@ -8,7 +8,7 @@
     state: present
   with_items: "{{ cvmfs_deb_dependencies }}"
 
-- name: Check if cvmfs is installed 
+- name: Check if cvmfs is installed
   command: dpkg-query -W cvmfs
   register: reg_cvmfs_check_deb
   failed_when: reg_cvmfs_check_deb.rc > 1

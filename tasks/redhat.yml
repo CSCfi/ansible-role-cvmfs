@@ -39,16 +39,16 @@
 - name: Install FGCI repo (fgci-release7) if it is not
   yum:
     pkg: http://idris.fgi.csc.fi/fgci7/x86_64/fgci/rpms/fgci-release7-1-1.el7.noarch.rpm
-  when: 
-    - ansible_distribution_major_version == "7" 
-    - fgci_install == True 
+  when:
+    - ansible_distribution_major_version == "7"
+    - fgci_install
     - reg_cvmfs_fgci7_installed is failed
 
 - name: Install FGCI CVMFS repofiles
   yum:
     name: cvmfs-repofiles-fgi
     state: present
-  when: fgci_install == True
+  when: fgci_install
 
 - name: Install CVMFS client EL6
   yum:
