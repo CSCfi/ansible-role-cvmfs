@@ -1,43 +1,43 @@
 ---
 # tasks file for ansible-role-cvmfs
 #
-- name: get_url the CVMFS repo
-  get_url:
+- name: Fetch CVMFS repofile
+  ansible.builtin.get_url:
     url: https://cvmrepo.web.cern.ch/cvmrepo/yum/cernvm.repo
     dest: /etc/yum.repos.d/cernvm.repo
     mode: 0644
   register: cvmfs_cernrepo
-  ignore_errors: True
+  ignore_errors: true
 
-- name: rpm_key CVMFS gpg key
-  rpm_key:
+- name: Import the CVMFS rpm gpg key
+  ansible.builtin.rpm_key:
     key: https://cvmrepo.web.cern.ch/cvmrepo/yum/RPM-GPG-KEY-CernVM
     state: present
   register: cvmfs_cernrepokey
 
-- name: copy in cernvm.repo if get_url from cvmrepo.web.cern.ch fails
-  copy:
+- name: Copy in cernvm.repo if get_url from cvmrepo.web.cern.ch fails
+  ansible.builtin.copy:
     src: cernvm.repo
     dest: /etc/yum.repos.d/cernvm.repo
     mode: 0644
   when: cvmfs_cernrepo is failed
 
-#TODO?
-#- name: add a cernkey if cvmfs_cernrepokey failed
+# TODO?
+# - name: add a cernkey if cvmfs_cernrepokey failed
 #  rpm_key: src=cernvm.repo dest=/etc/yum.repos.d/cernvm.repo mode=0644
 #  when: cvmfs_cernrepo.failed
 #
 
 - name: Check if fgci-release7 is installed
-  yum:
+  ansible.builtin.yum:
     pkg: fgci-release7
     state: installed
   register: reg_cvmfs_fgci7_installed
-  check_mode: no
-  ignore_errors: True
+  check_mode: false
+  ignore_errors: true
 
 - name: Install FGCI repo (fgci-release7) if it is not
-  yum:
+  ansible.builtin.yum:
     pkg: http://idris.fgi.csc.fi/fgci7/x86_64/fgci/rpms/fgci-release7-1-1.el7.noarch.rpm
   when:
     - ansible_distribution_major_version == "7"
@@ -45,19 +45,19 @@
     - reg_cvmfs_fgci7_installed is failed
 
 - name: Install FGCI CVMFS repofiles
-  yum:
+  ansible.builtin.yum:
     name: cvmfs-repofiles-fgi
     state: present
   when: fgci_install
 
 - name: Install CVMFS client EL6
-  yum:
+  ansible.builtin.yum:
     name: ["cvmfs-release", "cvmfs-keys", "cvmfs", "cvmfs-init-scripts", "cvmfs-auto-setup"]
     state: present
   when: ansible_distribution_major_version == "6"
 
 - name: Install CVMFS client EL7
-  yum:
+  ansible.builtin.yum:
     name: ["cvmfs-keys", "cvmfs", "cvmfs-config-default", "autofs"]
     state: present
   when: ansible_distribution_major_version == "7"
