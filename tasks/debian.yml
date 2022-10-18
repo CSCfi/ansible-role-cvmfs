@@ -2,53 +2,58 @@
 # tasks file for ansible-role-cvmfs
 #
 #
-- name: install dependencies
-  apt:
-    name: "{{ item }}"
+- name: Install dependencies
+  ansible.builtin.apt:
+    name: "{{ cvmfs_deb_dependencies }}"
     state: present
-  with_items: "{{ cvmfs_deb_dependencies }}"
 
 - name: Check if cvmfs is installed
-  command: dpkg-query -W cvmfs
+  ansible.builtin.command: dpkg-query -W cvmfs
   register: reg_cvmfs_check_deb
   failed_when: reg_cvmfs_check_deb.rc > 1
   changed_when: reg_cvmfs_check_deb.rc == 1
 
 - name: Check if cvmfs-config is installed
-  command: dpkg-query -W cvmfs-config
+  ansible.builtin.command: dpkg-query -W cvmfs-config
   register: reg_cvmfs_config_check_deb
   failed_when: reg_cvmfs_config_check_deb.rc > 1
   changed_when: reg_cvmfs_config_check_deb.rc == 1
 
 - name: Download cvmfs
-  get_url:
+  ansible.builtin.get_url:
     url: "{{ cvmfs_deb_url }}"
     dest: "/tmp/cvmfs.deb"
+    owner: "root"
+    group: "root"
+    mode: 0600
   when: reg_cvmfs_check_deb.rc == 1
 
 - name: Download cvmfs-config
-  get_url:
+  ansible.builtin.get_url:
     url: "{{ cvmfs_deb_config_url }}"
     dest: "/tmp/cvmfs-config.deb"
+    owner: "root"
+    group: "root"
+    mode: 0600
   when: cvmfs_deb_config_url is defined and reg_cvmfs_config_check_deb.rc == 1
 
 - name: Install cvmfs-config
-  apt:
+  ansible.builtin.apt:
     deb: "/tmp/cvmfs-config.deb"
   when: cvmfs_deb_config_url is defined and reg_cvmfs_config_check_deb.rc == 1
 
 - name: Install cvmfs
-  apt:
+  ansible.builtin.apt:
     deb: "/tmp/cvmfs.deb"
   when: reg_cvmfs_check_deb.rc == 1
 
 - name: Install autofs
-  apt:
+  ansible.builtin.apt:
     name: autofs
     state: present
 
-- name: add cvmfs user to fuse group
-  user:
+- name: Add cvmfs user to fuse group
+  ansible.builtin.user:
     name: cvmfs
-    append: yes
+    append: true
     groups: fuse
