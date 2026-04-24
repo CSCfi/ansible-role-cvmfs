@@ -1,22 +1,23 @@
 ---
 galaxy_info:
-  author: Johan Guldmyr
-  description: Configures a CVMFS client
-  company: CSC - IT Center for Science Ltd.
-  license: MIT
-  min_ansible_version: 2.2
-  platforms:
-  - name: EL
-    versions:
-    - 7
-  - name: Ubuntu
-    versions:
-    - all
-  - name: Debian
-    versions:
-    - all
-  galaxy_tags:
-  - system
-  - filesystem
-  - cache
+   author: Johan Guldmyr
+   description: Configures a CVMFS client
+   company: CSC - IT Center for Science Ltd.
+   license: MIT
+   min_ansible_version: "2.19"
+   platforms:
+      - name: EL
+        versions:
+           - "9"
+           - "10"
+      - name: Ubuntu
+        versions:
+           - all
+      - name: Debian
+        versions:
+           - all
+   galaxy_tags:
+      - system
+      - filesystem
+      - cache
 dependencies: []

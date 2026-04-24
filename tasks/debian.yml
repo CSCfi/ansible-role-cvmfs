@@ -25,7 +25,7 @@
     dest: "/tmp/cvmfs.deb"
     owner: "root"
     group: "root"
-    mode: 0600
+    mode: '0600'
   when: reg_cvmfs_check_deb.rc == 1
 
 - name: Download cvmfs-config
@@ -34,7 +34,7 @@
     dest: "/tmp/cvmfs-config.deb"
     owner: "root"
     group: "root"
-    mode: 0600
+    mode: '0600'
   when: cvmfs_deb_config_url is defined and reg_cvmfs_config_check_deb.rc == 1
 
 - name: Install cvmfs-config

@@ -3,16 +3,16 @@
 #
 cvmfs_http_proxy: "DIRECT"
 cvmfs_quota_limit: "20480"
-
-fgci_install: False
+# /etc/cvmfs/default.conf sets this as "/var/lib/cvmfs"
+# cvmfs_cache_dir: "/tmp/cvmfs"
 
 # This repo is used to test cvmfs after the playbook
-cvmfs_test_repo: "fgi.csc.fi"
+cvmfs_test_repo: "atlas.cern.ch"
 
 # cms_site: ""
 #
 # Set cvmfs_overwrite_default_local to False to not overwrite default.local
-cvmfs_overwrite_default_local: True
+cvmfs_overwrite_default_local: true
 
 cvmfs_deb_dependencies:
  - attr
@@ -21,5 +21,5 @@ cvmfs_deb_dependencies:
  - uuid-dev
  - uuid
 
-cvmfs_deb_url: "https://ecsft.cern.ch/dist/cvmfs/cvmfs-2.6.3/cvmfs_2.6.3~1+ubuntu18.04_amd64.deb"
+cvmfs_deb_url: "https://ecsft.cern.ch/dist/cvmfs/cvmfs-2.13.3/cvmfs_2.13.3+ubuntu25.10_amd64.deb"
 cvmfs_deb_config_url: "https://ecsft.cern.ch/dist/cvmfs/cvmfs-config/cvmfs-config-default_latest_all.deb"
