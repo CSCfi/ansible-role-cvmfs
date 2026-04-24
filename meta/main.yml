@@ -1,6 +1,8 @@
 ---
 galaxy_info:
-   author: Johan Guldmyr
+   role_name: cvmfs_client
+   namespace: cscfi
+   author: Ulf Tigerstedt, Johan Guldmyr
    description: Configures a CVMFS client
    company: CSC - IT Center for Science Ltd.
    license: MIT
