@@ -1,8 +1,6 @@
 ---
-
- - hosts: localhost
-   remote_user: root
-   vars:
-     - fgci_install: True
-   roles:
-     - ansible-role-cvmfs
+- name: Test ansible-role-cvmfs
+  hosts: localhost
+  remote_user: root
+  roles:
+    - ansible-role-cvmfs

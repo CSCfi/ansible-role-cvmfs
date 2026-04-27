@@ -5,7 +5,7 @@
   ansible.builtin.get_url:
     url: https://cvmrepo.web.cern.ch/cvmrepo/yum/cernvm.repo
     dest: /etc/yum.repos.d/cernvm.repo
-    mode: 0644
+    mode: '0644'
   register: cvmfs_cernrepo
   ignore_errors: true
 
@@ -19,7 +19,7 @@
   ansible.builtin.copy:
     src: cernvm.repo
     dest: /etc/yum.repos.d/cernvm.repo
-    mode: 0644
+    mode: '0644'
   when: cvmfs_cernrepo is failed
 
 # TODO?
@@ -28,36 +28,14 @@
 #  when: cvmfs_cernrepo.failed
 #
 
-- name: Check if fgci-release7 is installed
-  ansible.builtin.yum:
-    pkg: fgci-release7
-    state: installed
-  register: reg_cvmfs_fgci7_installed
-  check_mode: false
-  ignore_errors: true
-
-- name: Install FGCI repo (fgci-release7) if it is not
-  ansible.builtin.yum:
-    pkg: http://idris.fgi.csc.fi/fgci7/x86_64/fgci/rpms/fgci-release7-1-1.el7.noarch.rpm
-  when:
-    - ansible_distribution_major_version == "7"
-    - fgci_install
-    - reg_cvmfs_fgci7_installed is failed
-
-- name: Install FGCI CVMFS repofiles
-  ansible.builtin.yum:
-    name: cvmfs-repofiles-fgi
+- name: Install CVMFS client EL9
+  ansible.builtin.dnf:
+    name: ["cvmfs", "cvmfs-config-default", "autofs"]
     state: present
-  when: fgci_install
+  when: ansible_facts["distribution_major_version"] == "9"
 
-- name: Install CVMFS client EL6
-  ansible.builtin.yum:
-    name: ["cvmfs-release", "cvmfs-keys", "cvmfs", "cvmfs-init-scripts", "cvmfs-auto-setup"]
+- name: Install CVMFS client EL10
+  ansible.builtin.dnf:
+    name: ["cvmfs", "cvmfs-config-default", "autofs"]
     state: present
-  when: ansible_distribution_major_version == "6"
-
-- name: Install CVMFS client EL7
-  ansible.builtin.yum:
-    name: ["cvmfs-keys", "cvmfs", "cvmfs-config-default", "autofs"]
-    state: present
-  when: ansible_distribution_major_version == "7"
+  when: ansible_facts["distribution_major_version"] == "10"

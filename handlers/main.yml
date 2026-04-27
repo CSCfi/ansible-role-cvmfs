@@ -1,6 +1,6 @@
 ---
-- name: restart autofs
-  service:
+- name: Restart autofs
+  ansible.builtin.service:
     name: autofs
     state: restarted
   when: ansible_virtualization_type != "docker" and ansible_connection != 'chroot'
