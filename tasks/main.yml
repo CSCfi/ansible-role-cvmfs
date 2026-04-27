@@ -78,7 +78,7 @@
 - name: Flush the handlers - so that autofs settings are applied before we run chksetup
   ansible.builtin.meta: flush_handlers
 
-- name: Cvmfs_config chksetup which causes the playbook to fail when there are errors
+- name: Run cvmfs_config chksetup to sanity check the config file
   ansible.builtin.command: cvmfs_config chksetup
   register: cvmfschksetup
   failed_when: cvmfschksetup.rc != 0
