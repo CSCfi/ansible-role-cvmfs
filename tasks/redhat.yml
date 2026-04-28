@@ -8,16 +8,16 @@
 #    mode: '0644'
 #  register: cvmfs_cernrepo
 #  ignore_errors: true
-- name: Install cvmfs-release
-  ansible.builtin.dnf:
-    name: "https://cvmrepo.web.cern.ch/cvmrepo/yum/cvmfs-release-latest.noarch.rpm"
-    state: present
-
 - name: Import the CVMFS rpm gpg key
   ansible.builtin.rpm_key:
     key: "https://cvmrepo.web.cern.ch/cvmrepo/yum/RPM-GPG-KEY-CernVM-2048"
     state: present
   register: cvmfs_cernrepokey
+
+- name: Install cvmfs-release
+  ansible.builtin.dnf:
+    name: "https://cvmrepo.web.cern.ch/cvmrepo/yum/cvmfs-release-latest.noarch.rpm"
+    state: present
 
 - name: Copy in cernvm.repo if get_url from cvmrepo.web.cern.ch fails
   ansible.builtin.copy:
