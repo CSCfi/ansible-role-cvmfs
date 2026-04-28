@@ -7,7 +7,7 @@ cvmfs_quota_limit: "20480"
 # cvmfs_cache_dir: "/tmp/cvmfs"
 
 # This repo is used to test cvmfs after the playbook
-cvmfs_test_repo: "atlas.cern.ch"
+cvmfs_test_repo: "cvmfs-config.cern.ch"
 
 # cms_site: ""
 #
