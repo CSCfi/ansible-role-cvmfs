@@ -19,19 +19,6 @@
     name: "https://cvmrepo.web.cern.ch/cvmrepo/yum/cvmfs-release-latest.noarch.rpm"
     state: present
 
-- name: Copy in cernvm.repo if get_url from cvmrepo.web.cern.ch fails
-  ansible.builtin.copy:
-    src: cernvm.repo
-    dest: /etc/yum.repos.d/cernvm.repo
-    mode: '0644'
-  when: cvmfs_cernrepo is failed
-
-# TODO?
-# - name: add a cernkey if cvmfs_cernrepokey failed
-#  rpm_key: src=cernvm.repo dest=/etc/yum.repos.d/cernvm.repo mode=0644
-#  when: cvmfs_cernrepo.failed
-#
-
 - name: Install CVMFS client EL9
   ansible.builtin.dnf:
     name: ["cvmfs", "cvmfs-config-default", "autofs"]
