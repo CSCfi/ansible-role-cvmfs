@@ -1,0 +1,10 @@
+# (From ansible)
+[cernvm]
+name=CernVM packages
+baseurl={{ cvmfs_repo_custom_location }}/$releasever/$basearch/
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CernVM
+gpgcheck=1
+enabled=1
+protect=1
+
+
