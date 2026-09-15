@@ -15,7 +15,7 @@ cvmfs_test_repo: "cvmfs-config.cern.ch"
 cvmfs_overwrite_default_local: true
 
 # If the GPG key is located locally, override the default here
-cvmfs_yum_repokey: "https://cvmrepo.web.cern.ch/cvmrepo/yum/RPM-GPG-KEY-CernVM-2048"
+cvmfs_yum_repokey: "https://cvmrepo.web.cern.ch/cvmrepo/yum/RPM-GPG-KEY-CernVM"
 
 cvmfs_rpm_use_cvmfs_release: true
 # if above is set to false, also set
