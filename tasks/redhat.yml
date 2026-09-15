@@ -2,14 +2,32 @@
 # tasks file for ansible-role-cvmfs
 - name: Import the CVMFS rpm gpg key
   ansible.builtin.rpm_key:
-    key: "https://cvmrepo.web.cern.ch/cvmrepo/yum/RPM-GPG-KEY-CernVM-2048"
+    key: "{{ cvmfs_yum_repokey }}"
     state: present
-  register: cvmfs_cernrepokey
 
 - name: Install cvmfs-release
   ansible.builtin.dnf:
     name: "https://cvmrepo.web.cern.ch/cvmrepo/yum/cvmfs-release-latest.noarch.rpm"
     state: present
+  when: cvmfs_rpm_use_cvmfs_release
+
+- name: Template alternative cernvm.repo
+  ansible.builtin.template:
+    src: "cernvm.repo"
+    dest: "/etc/yum.repos.d/cernvm.repo"
+    mode: '0644'
+    owner: "root"
+    group: "root"
+  when: not cvmfs_rpm_use_cvmfs_release
+
+- name: Download GPG key
+  ansible.builtin.get_url:
+    url: "{{ cvmfs_yum_repokey }}"
+    dest: "/etc/pki/rpm-gpg/RPM-GPG-KEY-CernVM" 
+    owner: "root"
+    group: "root"
+    mode: '0644'
+  when: not cvmfs_rpm_use_cvmfs_release
 
 - name: Install CVMFS client EL9
   ansible.builtin.dnf:
